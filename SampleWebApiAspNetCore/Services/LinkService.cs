@@ -87,6 +87,17 @@ namespace SampleWebApiAspNetCore.Services
             return resourceToReturn;
         }
 
+        public object ExpandSingleMovieItem(object resource, int identifier, ApiVersion version)
+        {
+            var resourceToReturn = resource.ToDynamic() as IDictionary<string, object>;
+
+            var links = GetLinksForSingleItem(identifier, version);
+
+            resourceToReturn.Add("links", links);
+
+            return resourceToReturn;
+        }
+
 
         private IEnumerable<LinkDto> GetLinksForSingleItem(int id, ApiVersion version)
         {
@@ -106,13 +117,13 @@ namespace SampleWebApiAspNetCore.Services
             var createLink = _urlHelper.Link(GetMethod(methods, typeof(HttpPostAttribute)), new { version = version.ToString() });
             links.Add(
               new LinkDto(createLink,
-              "create_food",
+              "create",
               "POST"));
 
             var updateLink = _urlHelper.Link(GetMethod(methods, typeof(HttpPutAttribute)), new { version = version.ToString(), id = id });
             links.Add(
                new LinkDto(updateLink,
-               "update_food",
+               "update",
                "PUT"));
 
             return links;

@@ -9,10 +9,12 @@ namespace SampleWebApiAspNetCore.Helpers
         {
             using (var scope = app.Services.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<FoodDbContext>();
+                var foodDbContext = scope.ServiceProvider.GetRequiredService<FoodDbContext>();
+                var movieDbContext = scope.ServiceProvider.GetRequiredService<MovieDbContext>();
                 var seedDataService = scope.ServiceProvider.GetRequiredService<ISeedDataService>();
 
-                seedDataService.Initialize(dbContext);
+                seedDataService.Initialize(foodDbContext);
+                seedDataService.Initialize(movieDbContext);
             }
         }
     }

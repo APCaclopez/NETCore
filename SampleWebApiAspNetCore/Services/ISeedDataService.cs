@@ -4,6 +4,7 @@ namespace SampleWebApiAspNetCore.Services
 {
     public interface ISeedDataService
     {
-        void Initialize(FoodDbContext context);
+        void Initialize(FoodDbContext foodcontext);
+        void Initialize(MovieDbContext moviecontext);
     }
 }
